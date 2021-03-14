@@ -1,0 +1,16 @@
+---
+- name: list containers on hosts
+  hosts: all
+  become: yes
+  tasks:
+    - name: get info on docker host and list containers matching the filter
+      docker_host_info:
+        containers: yes
+        containers_filters:
+          name: "*"
+      register: result
+
+    - name: Print return information from the previous task
+      ansible.builtin.debug:
+        var: result
+        verbosity: 2
